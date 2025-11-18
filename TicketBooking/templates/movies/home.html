@@ -2,23 +2,39 @@
 {% block content %}
 
 <div class="container py-4">
-    <h2 class="mb-4">Now Showing</h2>
-    
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Now Showing</h2>
+
+        <!-- SEARCH BAR -->
+        <form method="GET" class="d-flex" style="width: 300px;">
+            <input type="text" name="q" class="form-control me-2"
+                   placeholder="Search movies..."
+                   value="{{ query|default:'' }}">
+            <button class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
     <div class="row">
         {% for movie in movies %}
         <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <img src="{{ movie.poster_image.url }}" class="card-img-top" alt="{{ movie.title }}" style="height:300px; object-fit:cover;">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ movie.poster_image.url }}" class="card-img-top" 
+                     alt="{{ movie.title }}" style="height:300px; object-fit:cover;">
                 
                 <div class="card-body">
                     <h5 class="card-title">{{ movie.title }}</h5>
                     <p class="text-muted">{{ movie.genre }}</p>
-                    <a href="{% url 'movie_detail' movie.id %}" class="btn btn-primary w-100">View Details</a>
+                    <a href="{% url 'movie_detail' movie.id %}" class="btn btn-primary w-100">
+                        View Details
+                    </a>
                 </div>
             </div>
         </div>
         {% empty %}
-            <p>No movies available.</p>
+            <div class="text-center mt-5">
+                <h5>No movies found.</h5>
+            </div>
         {% endfor %}
     </div>
 </div>

@@ -10,6 +10,10 @@ urlpatterns = [
     path('confirm-booking/', views.confirm_booking, name='confirm_booking'),
     path('my-bookings/', views.my_bookings, name='my_bookings'),
     path('booking-confirmed/', views.booking_confirmed, name='booking_confirmed'),
+    path("create-stripe-session/", views.create_stripe_session, name="create_stripe_session"),
+    path("payment-success/", views.payment_success, name="payment_success"),
+    path("payment-cancel/", views.payment_cancel, name="payment_cancel"),
+
 
 
 ]

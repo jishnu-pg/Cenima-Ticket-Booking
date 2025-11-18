@@ -58,15 +58,16 @@
     </div>
 
     <!-- Confirm Button -->
-    <form method="POST" action="{% url 'booking:confirm_booking' %}">
+    <form method="POST" action="{% url 'booking:create_stripe_session' %}">
       {% csrf_token %}
       <input type="hidden" name="showtime" value="{{ showtime.id }}">
       <input type="hidden" name="seats" value="{{ seats }}">
 
-      <button class="btn btn-success w-100 py-2" style="font-size: 18px; border-radius: 8px;">
-        Confirm Booking
+      <button class="btn btn-primary w-100 py-2" style="font-size: 18px;">
+        Pay with Stripe
       </button>
     </form>
+
 
   </div>
 

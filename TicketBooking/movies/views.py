@@ -4,8 +4,18 @@ from .models import Movies,Showtime
 # Create your views here.
 
 def home(request):
-    movies = Movies.objects.all()
-    return render(request, 'movies/home.html',{'movies':movies})
+    query = request.GET.get("q")
+
+    if query:
+        movies = Movies.objects.filter(title__icontains=query)
+    else:
+        movies = Movies.objects.all()
+
+    return render(request, "movies/home.html", {
+        "movies": movies,
+        "query": query,
+    })
+
 
 def movie_details(request,movie_id):
     movie = get_object_or_404(Movies,id=movie_id)

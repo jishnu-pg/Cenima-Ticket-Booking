@@ -145,3 +145,9 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
 }
+
+# Stripe settings
+STRIPE_PUBLIC_KEY = ""
+STRIPE_SECRET_KEY = ""
+STRIPE_SUCCESS_URL = "http://127.0.0.1:8000/booking/payment-success/"
+STRIPE_CANCEL_URL = "http://127.0.0.1:8000/booking/payment-cancel/"
