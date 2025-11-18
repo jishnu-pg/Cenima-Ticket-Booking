@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-4">
+
+  <h3 class="mb-4">My Bookings</h3>
+
+  {% if bookings %}
+
+    <div class="row">
+      {% for b in bookings %}
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm p-3" style="border-radius: 12px;">
+
+          <div class="d-flex align-items-center">
+
+            <!-- Movie poster -->
+            {% if b.showtime.movie.poster_image %}
+            <img src="{{ b.showtime.movie.poster_image.url }}" 
+                 class="rounded me-3" 
+                 style="width: 90px; height: 120px; object-fit: cover;">
+            {% endif %}
+
+            <div>
+              <h5 class="mb-1">{{ b.showtime.movie.title }}</h5>
+
+              <span class="badge {% if b.status == 'BOOKED' %}bg-success{% else %}bg-danger{% endif %}">
+                {{ b.status }}
+              </span>
+
+              <p class="mt-2 mb-1">
+                <strong>Date:</strong> {{ b.showtime.date }} <br>
+                <strong>Time:</strong> {{ b.showtime.start_time }} <br>
+                <strong>Seats:</strong> {{ b.seats }}
+              </p>
+
+              <small class="text-muted">
+                Booked on: {{ b.booked_at|date:"M d, Y H:i" }}
+              </small>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+    <div class="alert alert-info">No bookings found.</div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5">
+
+  <!-- Movie Card -->
+  <div class="card shadow-lg border-0 mb-5" style="border-radius: 14px; overflow: hidden;">
+
+    <div class="row g-0">
+
+      <!-- Poster -->
+      <div class="col-md-4">
+        <div style="height: 100%; overflow: hidden;">
+          <img src="{{ movie.poster_image.url }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+
+      <!-- Movie Info -->
+      <div class="col-md-8">
+        <div class="p-4 p-md-5">
+
+          <h2 class="fw-bold">{{ movie.title }}</h2>
+
+          <div class="mb-3">
+            <span class="badge bg-primary me-2">{{ movie.genre }}</span>
+            <span class="badge bg-secondary">{{ movie.language }}</span>
+          </div>
+
+          <p class="text-muted mb-2"><strong>Duration:</strong> {{ movie.duration }} mins</p>
+
+          <p class="mt-3 fs-6">{{ movie.description }}</p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Showtimes Section -->
+  <div class="mb-4">
+    <h3 class="mb-3 fw-bold">Available Showtimes</h3>
+
+    {% if showtimes %}
+      
+      <div class="list-group shadow-sm">
+
+        {% for st in showtimes %}
+        <div class="list-group-item d-flex justify-content-between align-items-center py-3"
+             style="border-left: 6px solid #198754;">
+
+          <div>
+            <h6 class="mb-1 fw-bold">{{ st.date }}</h6>
+            <p class="mb-0 text-muted">Time: <strong>{{ st.start_time }}</strong></p>
+          </div>
+
+          <a href="{% url 'booking:select_seats' st.id %}" 
+             class="btn btn-success px-3 py-2">
+            Book Now
+          </a>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+    {% else %}
+      <div class="alert alert-warning mt-3">No showtimes available.</div>
+    {% endif %}
+  </div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+
+  <div class="card shadow-lg p-4" style="width: 600px; border-radius: 12px;">
+
+    <!-- Header -->
+    <h3 class="text-center mb-4">Checkout</h3>
+
+    <!-- Movie Info -->
+    <div class="d-flex mb-4">
+
+      {% if showtime.movie.poster %}
+      <img src="{{ showtime.movie.poster.url }}" 
+           class="rounded" 
+           style="width: 120px; height: 160px; object-fit: cover;">
+      {% endif %}
+
+      <div class="ms-3 flex-grow-1">
+        <h4>{{ showtime.movie.title }}</h4>
+
+        <p class="mb-1">
+          <strong>Date:</strong> {{ showtime.date }}
+        </p>
+        <p class="mb-1">
+          <strong>Time:</strong> {{ showtime.start_time }}
+        </p>
+        <p class="mb-1">
+          <strong>Seats:</strong> 
+          {% for seat in seats_list %}
+            <span class="badge bg-primary me-1">{{ seat }}</span>
+          {% endfor %}
+        </p>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <!-- Price Summary -->
+    <div class="mb-4">
+      <h5 class="mb-3">Price Summary</h5>
+
+      <div class="p-3 rounded" style="background: #f8f9fa;">
+        <div class="d-flex justify-content-between mb-2">
+          <span>Tickets ({{ seats_list|length }} × ₹{{ showtime.ticket_price }})</span>
+          <span>₹{{ total }}</span>
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between fw-bold fs-5">
+          <span>Total Amount</span>
+          <span>₹{{ total }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm Button -->
+    <form method="POST" action="{% url 'booking:confirm_booking' %}">
+      {% csrf_token %}
+      <input type="hidden" name="showtime" value="{{ showtime.id }}">
+      <input type="hidden" name="seats" value="{{ seats }}">
+
+      <button class="btn btn-success w-100 py-2" style="font-size: 18px; border-radius: 8px;">
+        Confirm Booking
+      </button>
+    </form>
+
+  </div>
+
+</div>
+
+{% endblock %}
